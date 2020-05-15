@@ -17,6 +17,30 @@
       width: 700px;
       height: 700px;
     }
+    .notif_box{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      margin-left: 20px;
+      .notifs{
+        display: none;
+        box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        background-color: white;
+        padding: 10px;
+        text-align: center;
+        border-radius: 20px;
+        margin-right: 20px;
+        width: 50%;
+        height: unset;
+        font-weight: 600;
+      }
+      .time {
+        display: none;
+        background-color: #e74c3c;
+        color: white;
+      }
+    }
     .controls {
       margin-top: 25px;
       display: flex;

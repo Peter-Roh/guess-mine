@@ -6,6 +6,8 @@ let inProgress = false;
 let word = null;
 let leader = null;
 let timeout = null;
+let time = 30;
+let counter = null;
 
 const chooseLeader = () => sockets[Math.floor(Math.random() * sockets.length)];
 
@@ -24,6 +26,10 @@ const socketController = (socket, io) => {
                     superBroadcast(events.gameStarted);
                     io.to(leader.id).emit(events.leaderNotif, { word });
                     timeout = setTimeout(endGame, 30000);
+                    counter = setInterval(() => {
+                        time -= 1;
+                        superBroadcast(events.timer , time);
+                    }, 1000);
                 }, 3000);
             };
         }
@@ -31,10 +37,14 @@ const socketController = (socket, io) => {
     const endGame = () => {
         inProgress = false;
         superBroadcast(events.gameEnded);
+        clearInterval(counter);
         if(timeout !== null) {
             clearTimeout(timeout);
         }
-        setTimeout(() => startGame(), 2000);
+        setTimeout(() => {
+            time = 30;
+            startGame()
+        }, 2000);
     }
     const addPoints = (id) => {
         sockets = sockets.map(socket => {
